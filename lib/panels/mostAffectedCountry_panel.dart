@@ -9,6 +9,7 @@ class MostAffectedCountriesPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 10),
       child: ListView.builder(
         itemCount: 6,
         shrinkWrap: true,
@@ -26,12 +27,12 @@ class MostAffectedCountriesPanel extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width:5),
+                SizedBox(width: 5),
                 Image.network(
                   countryData[index]['countryInfo']['flag'],
                   height: 30,
                 ),
-                SizedBox(width:10),
+                SizedBox(width: 10),
                 Text(
                   countryData[index]['country'],
                   style: TextStyle(
@@ -40,13 +41,27 @@ class MostAffectedCountriesPanel extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width:20),
-                Text(
-                  'Cases: ' + countryData[index]['cases'].toString(),
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                // SizedBox(width: 20),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.orangeAccent[700],
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        'Cases: ' + countryData[index]['cases'].toString(),
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],

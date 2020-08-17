@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ContinentDataPanel extends StatelessWidget {
-
   final List continentData;
 
   const ContinentDataPanel({Key key, this.continentData}) : super(key: key);
@@ -9,6 +8,7 @@ class ContinentDataPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 10),
       child: ListView.builder(
         itemCount: 6,
         shrinkWrap: true,
@@ -35,13 +35,26 @@ class ContinentDataPanel extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 20),
-                Text(
-                  'Cases: ' + continentData[index]['cases'].toString(),
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.orangeAccent[700],
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        'Cases: ' + continentData[index]['cases'].toString(),
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],

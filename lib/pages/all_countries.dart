@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:corona_tracker/pages/countryDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_indicators/progress_indicators.dart';
 
@@ -32,8 +33,15 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey[100],
       appBar: AppBar(
-        title: Text('All Country Stats'),
+        title: Text(
+          'All Country Stats',
+          style: GoogleFonts.baiJamjuree(
+            textStyle: Theme.of(context).textTheme.headline5,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -42,17 +50,24 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                   height: MediaQuery.of(context).size.height,
                   child: CollectionSlideTransition(
                     children: <Widget>[
-                      FaIcon(FontAwesomeIcons.viruses),
-                      FaIcon(FontAwesomeIcons.virus),
-                      FaIcon(FontAwesomeIcons.disease),
-                      FaIcon(FontAwesomeIcons.viruses),
-                      FaIcon(FontAwesomeIcons.viruses),
+                      FaIcon(FontAwesomeIcons.viruses,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.virus,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.disease,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.viruses,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.viruses,
+                          color: Theme.of(context).primaryColor),
                     ],
                   ),
                 )
               : ListView.builder(
                   itemBuilder: (context, index) {
                     return Card(
+                      margin:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                       child: InkWell(
                         splashColor: Colors.blue.withAlpha(30),
                         onTap: () => Navigator.push(
@@ -64,38 +79,32 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                           ),
                         ),
                         child: Container(
-                          height: 140,
+                          height: 180,
                           margin: EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.grey[500],
-                            //     blurRadius: 3,
-                            //   )
-                            // ],
                           ),
                           child: Row(
                             children: [
+                              // Container(
+                              //   margin: EdgeInsets.symmetric(horizontal: 5),
+                              //   child: Column(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       Text(
+                              //         (index + 1).toString() + '.',
+                              //         style: TextStyle(
+                              //           color: Colors.black,
+                              //           fontSize: 20.0,
+                              //           fontWeight: FontWeight.bold,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 5),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      (index + 1).toString() + '.',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                margin: EdgeInsets.symmetric(horizontal: 10),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,9 +118,9 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                                         maxLines: 2,
                                         softWrap: false,
                                         style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.w900,
                                         ),
                                       ),
                                     ),
@@ -123,14 +132,16 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey,
-                                            blurRadius: 10,
+                                            blurRadius: 0.2,
                                           )
                                         ],
                                       ),
                                       child: Image.network(
                                         allCountryData[index]['countryInfo']
                                             ['flag'],
-                                        height: 60,
+                                        height: 50,
+                                        // fit: BoxFit.scaleDown,
+                                        // width: 120,
                                       ),
                                     ),
                                   ],

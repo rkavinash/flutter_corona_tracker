@@ -5,6 +5,7 @@ import 'package:corona_tracker/pages/all_countries.dart';
 import 'package:corona_tracker/panels/continent_data.dart';
 import 'package:corona_tracker/panels/info_panel.dart';
 import 'package:corona_tracker/panels/mostAffectedCountry_panel.dart';
+import 'package:corona_tracker/panels/vaccine_panel.dart';
 import 'package:corona_tracker/panels/worldwide_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -45,22 +46,33 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Map vaccineData;
+  fetchVaccineData() async {
+    http.Response response =
+        await http.get('https://disease.sh/v3/covid-19/vaccine');
+    setState(() {
+      vaccineData = json.decode(response.body);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     fetchWorldData();
     fetchCountryData();
     fetchContinentData();
+    fetchVaccineData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey[100],
       appBar: AppBar(
         centerTitle: true,
         title: Text(
           'Covid-19 Tracker'.toUpperCase(),
-          style: GoogleFonts.ubuntuMono(
+          style: GoogleFonts.baiJamjuree(
             textStyle: Theme.of(context).textTheme.headline5,
             color: Colors.white,
           ),
@@ -73,11 +85,16 @@ class _HomePageState extends State<HomePage> {
                   height: MediaQuery.of(context).size.height,
                   child: CollectionSlideTransition(
                     children: <Widget>[
-                      FaIcon(FontAwesomeIcons.viruses),
-                      FaIcon(FontAwesomeIcons.virus),
-                      FaIcon(FontAwesomeIcons.disease),
-                      FaIcon(FontAwesomeIcons.viruses),
-                      FaIcon(FontAwesomeIcons.viruses),
+                      FaIcon(FontAwesomeIcons.viruses,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.virus,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.disease,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.viruses,
+                          color: Theme.of(context).primaryColor),
+                      FaIcon(FontAwesomeIcons.viruses,
+                          color: Theme.of(context).primaryColor),
                     ],
                   ),
                 ),
@@ -85,13 +102,16 @@ class _HomePageState extends State<HomePage> {
             : Column(
                 children: <Widget>[
                   QuotePanel(),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Card(
                     shadowColor: Theme.of(context).primaryColor,
                     elevation: 6,
-                    borderOnForeground: true,
                     child: Column(
                       children: [
                         WorldwidePanelHeading(),
+                        Divider(thickness: 2,),
                         worldData == null
                             ? Container()
                             : WorldwidePanel(
@@ -100,21 +120,25 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Card(
-                      shadowColor: Theme.of(context).primaryColor,
-                      elevation: 6,
-                      borderOnForeground: true,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          MostAffectedCountriesPanelHeading(),
-                          mostAffectedCountriesData == null
-                              ? Container()
-                              : MostAffectedCountriesPanel(
-                                  countryData: mostAffectedCountriesData,
-                                ),
-                        ],
-                      )),
+                    shadowColor: Theme.of(context).primaryColor,
+                    elevation: 6,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MostAffectedCountriesPanelHeading(),
+                        Divider(thickness: 2,),
+                        mostAffectedCountriesData == null
+                            ? Container()
+                            : MostAffectedCountriesPanel(
+                                countryData: mostAffectedCountriesData,
+                              ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -125,6 +149,9 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: [
                         ContinentPanelHeading(),
+                        Divider(
+                          thickness: 2,
+                        ),
                         continentData == null
                             ? Container()
                             : ContinentDataPanel(
@@ -133,7 +160,30 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Card(
+                    shadowColor: Theme.of(context).primaryColor,
+                    elevation: 6,
+                    child: Column(
+                      children: [
+                        VaccinePanelHeading(),
+                        Divider(thickness: 2,),
+                        vaccineData == null
+                            ? Container(
+                                child: Text('null'),
+                              )
+                            : VaccinePanel(
+                                vaccineData: vaccineData,
+                              ),
+                      ],
+                    ),
+                  ),
                   InfoPanel(),
+                  SizedBox(
+                    height: 40,
+                  ),
                   Text(
                     'We are together in the fight'.toUpperCase(),
                     style: TextStyle(
@@ -160,9 +210,30 @@ class ContinentPanelHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      margin: EdgeInsets.symmetric(vertical: 10),
       child: Text(
         'Continent Data'.toUpperCase(),
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class VaccinePanelHeading extends StatelessWidget {
+  const VaccinePanelHeading({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Text(
+        'Vaccine Data'.toUpperCase(),
         style: TextStyle(
           color: Colors.black,
           fontSize: 20.0,
@@ -181,7 +252,7 @@ class MostAffectedCountriesPanelHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -193,7 +264,7 @@ class MostAffectedCountriesPanelHeading extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Navigator.push(
                 context,
@@ -233,7 +304,7 @@ class WorldwidePanelHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.only(top:10),
       child: Text(
         'Worldwide'.toUpperCase(),
         style: TextStyle(
