@@ -49,7 +49,7 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
           child: allCountryData == null
               ? Container(
                   height: MediaQuery.of(context).size.height,
-                  child: CollectionSlideTransition(
+                  child: CollectionScaleTransition(
                     children: <Widget>[
                       FaIcon(FontAwesomeIcons.viruses,
                           color: Theme.of(context).primaryColor),
@@ -115,6 +115,8 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                                   ),
                                 ),
                               ),
+                              SizedBox(height: 10,),
+                              Divider(thickness: 2,),
                               Card(
                                 child: _DisplayListItem(
                                   allCountryData: allCountryData,

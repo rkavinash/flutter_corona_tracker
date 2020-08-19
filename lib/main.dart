@@ -1,13 +1,49 @@
 import 'package:corona_tracker/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return new SplashScreen(
+      loadingText: Text(
+        'We are together in the fight'.toUpperCase(),
+        style: GoogleFonts.baiJamjuree(
+          textStyle: Theme.of(context).textTheme.headline6,
+          color: Colors.white,
+        ),
+      ),
+      seconds: 3,
+      navigateAfterSeconds: new AfterSplash(),
+      title: new Text(
+        'Covid-19 Tracker'.toUpperCase(),
+        style: GoogleFonts.baiJamjuree(
+          textStyle: Theme.of(context).textTheme.headline4,
+          color: Colors.white,
+        ),
+      ),
+      backgroundColor: Colors.deepPurpleAccent[700],
+      photoSize: 150.0,
+      onClick: () => null,
+      loaderColor: Colors.white,
+    );
+  }
+}
+
+class AfterSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,

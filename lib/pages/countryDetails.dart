@@ -58,7 +58,7 @@ class _CountryDetailsState extends State<CountryDetails>
           ? Center(
               child: Container(
                 height: MediaQuery.of(context).size.height,
-                child: CollectionSlideTransition(
+                child: CollectionScaleTransition(
                   children: <Widget>[
                     FaIcon(FontAwesomeIcons.viruses,
                         color: Theme.of(context).primaryColor),

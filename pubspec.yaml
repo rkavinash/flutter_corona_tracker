@@ -31,6 +31,7 @@ dependencies:
   progress_indicators: ^0.1.5
   readmore: ^1.0.0
   humanize: ^0.3.0
+  splashscreen:
 
 
   # The following adds the Cupertino Icons font to your application.
