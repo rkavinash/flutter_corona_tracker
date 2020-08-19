@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:humanize/humanize.dart' as humanize;
 
 class ContinentDataPanel extends StatelessWidget {
   final List continentData;
@@ -19,9 +20,9 @@ class ContinentDataPanel extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  (index + 1).toString() + '.',
+                  humanize.ordinal((index + 1)).toString() + '.',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.blueGrey[700],
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -31,7 +32,7 @@ class ContinentDataPanel extends StatelessWidget {
                   continentData[index]['continent'],
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -46,11 +47,11 @@ class ContinentDataPanel extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
-                        'Cases: ' + continentData[index]['cases'].toString(),
+                        'Cases: ' + humanize.intComma(continentData[index]['cases']).toString(),
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16.0,
+                          fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

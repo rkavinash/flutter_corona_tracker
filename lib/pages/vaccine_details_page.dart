@@ -41,7 +41,7 @@ class VaccineDetails extends StatelessWidget {
                     leading: FaIcon(
                       FontAwesomeIcons.syringe,
                       color: Theme.of(context).primaryColor,
-                      size: 38,
+                      size: 50,
                     ),
                     title: Text(
                       _filteredVaccine[index]['candidate'],
@@ -54,6 +54,7 @@ class VaccineDetails extends StatelessWidget {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Divider(thickness: 2,),
                         SizedBox(
                           height: 20,
                         ),
@@ -65,6 +66,7 @@ class VaccineDetails extends StatelessWidget {
                           mainIndex: index,
                           subDetail: 'institutions',
                         ),
+                        Divider(thickness: 2,),
                         SizedBox(
                           height: 20,
                         ),
@@ -76,6 +78,7 @@ class VaccineDetails extends StatelessWidget {
                           mainIndex: index,
                           subDetail: 'funding',
                         ),
+                        Divider(thickness: 2,),
                         SizedBox(
                           height: 20,
                         ),
@@ -87,6 +90,7 @@ class VaccineDetails extends StatelessWidget {
                           mainIndex: index,
                           subDetail: 'sponsors',
                         ),
+                        Divider(thickness: 2,),
                         SizedBox(
                           height: 20,
                         ),

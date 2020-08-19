@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:humanize/humanize.dart' as humanize;
 
 class WorldwidePanel extends StatelessWidget {
 
@@ -17,10 +18,10 @@ class WorldwidePanel extends StatelessWidget {
           childAspectRatio: 2,
         ),
         children: [
-          StatusPanel(panelColor: Colors.redAccent[400], textColor: Colors.white, title: 'confirmed', count: worlwidedata['cases'].toString(),),
-          StatusPanel(panelColor: Colors.blueAccent[400], textColor: Colors.white, title: 'active', count: worlwidedata['active'].toString(),),
-          StatusPanel(panelColor: Colors.green[900], textColor: Colors.white, title: 'recovered', count: worlwidedata['recovered'].toString(),),
-          StatusPanel(panelColor: Colors.blueGrey[900], textColor: Colors.white, title: 'deaths', count: worlwidedata['deaths'].toString(),),
+          StatusPanel(panelColor: Colors.redAccent[400], textColor: Colors.white, title: 'confirmed', count: humanize.intComma(worlwidedata['cases']).toString(),),
+          StatusPanel(panelColor: Colors.blueAccent[400], textColor: Colors.white, title: 'active', count: humanize.intComma(worlwidedata['active']).toString(),),
+          StatusPanel(panelColor: Colors.green[900], textColor: Colors.white, title: 'recovered', count: humanize.intComma(worlwidedata['recovered']).toString(),),
+          StatusPanel(panelColor: Colors.blueGrey[900], textColor: Colors.white, title: 'deaths', count: humanize.intComma(worlwidedata['deaths']).toString(),),
         ],
       ),
     );

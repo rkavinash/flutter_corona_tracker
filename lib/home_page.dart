@@ -180,6 +180,9 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   InfoPanel(),
                   SizedBox(
                     height: 40,
@@ -212,10 +215,10 @@ class ContinentPanelHeading extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Text(
-        'Continent Data'.toUpperCase(),
+        'Continents Count'.toUpperCase(),
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.0,
+          fontSize: 22.0,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -233,10 +236,10 @@ class VaccinePanelHeading extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Text(
-        'Vaccine Data'.toUpperCase(),
+        'Vaccine Status'.toUpperCase(),
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.0,
+          fontSize: 22.0,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -260,7 +263,7 @@ class MostAffectedCountriesPanelHeading extends StatelessWidget {
             'Most Affected Countries'.toUpperCase(),
             style: TextStyle(
               color: Colors.black,
-              fontSize: 20.0,
+              fontSize: 21.0,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -309,7 +312,7 @@ class WorldwidePanelHeading extends StatelessWidget {
         'Worldwide'.toUpperCase(),
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.0,
+          fontSize: 24.0,
           fontWeight: FontWeight.bold,
         ),
       ),

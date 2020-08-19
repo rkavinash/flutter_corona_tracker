@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:humanize/humanize.dart' as humanize;
 
 class AllCountriesPage extends StatefulWidget {
   AllCountriesPage({Key key}) : super(key: key);
@@ -68,146 +69,105 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                     return Card(
                       margin:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      child: InkWell(
-                        splashColor: Colors.blue.withAlpha(30),
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => CountryDetails(
-                                countryId: allCountryData[index]['countryInfo']
-                                    ['iso2']),
-                          ),
-                        ),
+                      child: Center(
                         child: Container(
-                          height: 180,
-                          margin: EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white,
                           ),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Container(
-                              //   margin: EdgeInsets.symmetric(horizontal: 5),
-                              //   child: Column(
-                              //     mainAxisAlignment: MainAxisAlignment.center,
-                              //     crossAxisAlignment: CrossAxisAlignment.start,
-                              //     children: [
-                              //       Text(
-                              //         (index + 1).toString() + '.',
-                              //         style: TextStyle(
-                              //           color: Colors.black,
-                              //           fontSize: 20.0,
-                              //           fontWeight: FontWeight.bold,
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 130,
-                                      height: 40,
-                                      child: Text(
-                                        allCountryData[index]['country'],
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                        softWrap: false,
-                                        style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: 25.0,
-                                          fontWeight: FontWeight.w900,
-                                        ),
+                              Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    child: Text(
+                                      (index + 1).toString() +
+                                          '. ' +
+                                          allCountryData[index]['country'],
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      softWrap: false,
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.w900,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 0.2,
-                                          )
-                                        ],
-                                      ),
-                                      child: Image.network(
-                                        allCountryData[index]['countryInfo']
-                                            ['flag'],
-                                        height: 50,
-                                        // fit: BoxFit.scaleDown,
-                                        // width: 120,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
-                                        'Total Cases : ' +
-                                            allCountryData[index]['cases']
-                                                .toString(),
-                                        style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Recovered : ' +
-                                            allCountryData[index]['recovered']
-                                                .toString(),
-                                        style: TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Active Case : ' +
-                                            allCountryData[index]['active']
-                                                .toString(),
-                                        style: TextStyle(
-                                          color: Colors.orange[800],
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        'critical Case : ' +
-                                            allCountryData[index]['critical']
-                                                .toString(),
-                                        style: TextStyle(
-                                          color: Colors.deepOrange,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Total Deaths : ' +
-                                            allCountryData[index]['deaths']
-                                                .toString(),
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ),
+                              Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 5,
+                                          )
+                                        ],
+                                      ),
+                                  child: Image.network(
+                                    allCountryData[index]['countryInfo']
+                                        ['flag'],
+                                    fit: BoxFit.fitHeight,
+                                    height: 100,
+                                  ),
+                                ),
+                              ),
+                              Card(
+                                child: _DisplayListItem(
+                                  allCountryData: allCountryData,
+                                  caseName: 'cases',
+                                  listColor: Colors.redAccent[700],
+                                  listHeading: 'Total Cases : ',
+                                  i: index,
+                                  displayIcon: FontAwesomeIcons.hospitalAlt,
+                                ),
+                              ),
+                              Card(
+                                child: _DisplayListItem(
+                                  allCountryData: allCountryData,
+                                  caseName: 'active',
+                                  listColor: Colors.amber[900],
+                                  listHeading: 'Active Cases : ',
+                                  i: index,
+                                  displayIcon: FontAwesomeIcons.procedures,
+                                ),
+                              ),
+                              Card(
+                                child: _DisplayListItem(
+                                  allCountryData: allCountryData,
+                                  caseName: 'deaths',
+                                  listColor: Colors.black,
+                                  listHeading: 'Total Deaths : ',
+                                  i: index,
+                                  displayIcon: FontAwesomeIcons.skullCrossbones,
+                                ),
+                              ),
+                              Card(
+                                  child: Container(
+                                alignment: Alignment.bottomRight,
+                                child: RaisedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => CountryDetails(
+                                            countryId: allCountryData[index]
+                                                ['countryInfo']['iso2']),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    'view more >',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.0,
+                                    ),
+                                  ),
+                                ),
+                              )),
                             ],
                           ),
                         ),
@@ -218,6 +178,45 @@ class _AllCountriesPageState extends State<AllCountriesPage> {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                 ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DisplayListItem extends StatelessWidget {
+  final String listHeading;
+  final String caseName;
+  final Color listColor;
+  final int i;
+  final IconData displayIcon;
+
+  const _DisplayListItem({
+    Key key,
+    @required this.allCountryData,
+    this.listHeading,
+    this.caseName,
+    this.listColor,
+    this.i,
+    this.displayIcon,
+  }) : super(key: key);
+
+  final List allCountryData;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: FaIcon(
+        displayIcon,
+        size: 40,
+        color: Theme.of(context).primaryColor,
+      ),
+      title: Text(
+        listHeading + humanize.intComma(allCountryData[i][caseName]).toString(),
+        style: TextStyle(
+          color: listColor,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

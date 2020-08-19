@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:humanize/humanize.dart' as humanize;
 
 class MostAffectedCountriesPanel extends StatelessWidget {
   final List countryData;
@@ -20,9 +21,9 @@ class MostAffectedCountriesPanel extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  (index + 1).toString() + '.',
+                  humanize.ordinal((index + 1)).toString() + '.',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.blueGrey[800],
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -37,7 +38,7 @@ class MostAffectedCountriesPanel extends StatelessWidget {
                   countryData[index]['country'],
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20.0,
+                    fontSize: 22.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -53,11 +54,11 @@ class MostAffectedCountriesPanel extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
-                        'Cases: ' + countryData[index]['cases'].toString(),
+                        'Cases: ' + humanize.intComma(countryData[index]['cases']).toString(),
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16.0,
+                          fontSize: 18.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
